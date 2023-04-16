@@ -20,6 +20,7 @@ There are a handful of configuration variables that should be mentioned:
 
 Variable                 | Default value     | Notes
 -------------------------|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------
+REHYDRATED_API_KEY       | ``                | Required. API key for the configured DNS provider that has permissions to read, create and delete records
 REHYDRATED_RECORD_TTL    | `60`              | DNS record TTL in seconds
 REHYDRATED_RENEWAL_SLEEP | `60`              | Script sleep time between creation of DNS record and ACME verification
 REHYDRATED_NODE_NAME     | `_acme-challenge` | TXT record name of the challenge
