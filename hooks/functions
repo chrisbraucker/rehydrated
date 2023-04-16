@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# -*- coding: utf8 -*-
+
+export RECORD_TTL="${REHYDRATED_RECORD_TTL:-60}"
+export RENEWAL_SLEEP="${REHYDRATED_RENEWAL_SLEEP:-60}"
+export RECORD_NODE_NAME="${REHYDRATED_NODE_NAME:-'_acme-challenge'}"
+export API_KEY="$REHYDRATED_API_KEY"
+
+# Sets $DEBUG to 0 in fase $REHYDRATED_DEBUG is falsy or empty/unset, or 1 otherwise
+case "${REHYDRATED_DEBUG:-0}" in
+    0 | [fF] | [fF]alse | FALSE | "")
+        DEBUG=0
+        ;;
+    *)
+        DEBUG=1
+esac
+export DEBUG
+
+# `log "namespace" "message` prints messages to stdout in the format (UTC)
+# 2001-02-03T04:05:06+07:00 [$NAMESPACE] $MESSAGE"
+# if the first parameter ("namespace") is empty, it will be printed as "[-]"
+log() {
+    local FUNC="${1}" MSG="${2}"
+    if [[ -z "$MSG" ]]; then
+        MSG="$FUNC"
+        FUNC="-"
+    fi
+    echo "$(date -u -Iseconds)" '['"$FUNC"']' "$MSG"
+}
+
+# `debugging` is a convenience wrapper around the $REHYDRATED_DEBUG/$DEBUG variable
+#
+# Use like
+#   if debugging; then
+#     #do debug logging or similar
+#   fi
+# Or
+#   debugging && log "some debug stuff"
+debugging() {
+    if [[ "$DEBUG" -eq "1" ]]; then
+        return 0
+    fi
+    return 1
+}

@@ -1,0 +1,20 @@
+version: '3.2'
+
+services:
+  rehydrated:
+    container_name: rehydrated
+    image: ghcr.io/chrisbraucker/rehydrated:latest
+    environment:
+      REHYDRATED_API_KEY: ReplaceWithYourAPIKey
+      #REHYDRATED_RECORD_TTL:
+      #REHYDRATED_RENEWAL_SLEEP:
+      #REHYDRATED_RECORD_NODE_NAME:
+      #REHYDRATED_DEBUG:
+    command: >-
+      --cron
+      --config /letsencrypt/config
+      --out /letsencrypt/
+      --domain 'example.com'
+      --hook hooks/cloudflare.sh"
+    volumes:
+      - './letsencrypt/:/letsencrypt/:rw'
