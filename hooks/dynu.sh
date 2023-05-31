@@ -16,7 +16,7 @@ DOMAINS_EP="$API/dns"
 RECORDS_EP="$DOMAINS_EP/%s/record"
 RECORD_EP="$RECORDS_EP/%s"
 
-source "functions"
+source "/app/hooks/functions"
 
 # configuration defined in `./functions`
 #RECORD_TTL

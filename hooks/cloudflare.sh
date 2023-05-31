@@ -16,7 +16,7 @@ ZONES_EP="$API/zones"
 RECORDS_EP="$ZONES_EP/%s/dns_records"
 RECORD_EP="$RECORDS_EP/%s"
 
-source "functions"
+source "/app/hooks/functions"
 
 # configuration defined in `./functions`
 #RECORD_TTL
