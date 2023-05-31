@@ -13,8 +13,8 @@ set -o pipefail
 # Endpoints, in printf format
 API='https://api.cloudflare.com/client/v4'
 ZONES_EP="$API/zones"
-RECORDS_EP="$ZONES/%s/dns_records"
-RECORD_EP="$RECS/%s"
+RECORDS_EP="$ZONES_EP/%s/dns_records"
+RECORD_EP="$RECORDS_EP/%s"
 
 source "functions"
 
@@ -107,7 +107,7 @@ clean_challenge() {
     if debugging; then log 'clean_challenge' "From '$TOKEN_FILENAME.txt' read Record: $recordId"; fi
 
     # get the domain ID
-    domainId=$(curl -sS -XGET "$ZONES" \
+    domainId=$(curl -sS -XGET "$ZONES_EP" \
                  -H 'Content-Type: application/json' \
                  -H "Authorization: Bearer $API_KEY" \
                  -d "{\"name\": \"$DOMAIN\"}" \
